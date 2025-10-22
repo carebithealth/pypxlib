@@ -179,6 +179,8 @@ class DateField(Field):
 		# if all values are 0, this is a blank date. return None
 		if all([year.value == 0, month.value == 0, day.value == 0]):
 			return None
+		if year.value < 0:
+			return None
 		return date(year.value, month.value, day.value)
 	def _serialize_to(self, value, pxval_value):
 		pxval_value.lval = self._serialize_days(value)
@@ -248,7 +250,8 @@ class TimestampField(Field):
 		ms_rem = int(pxval_value.dval % 86400000)
 		date = DateField._deserialize_days(days)
 		time = TimeField._deserialize_ms(ms_rem)
-		return datetime.combine(date, time)
+		if date is not None:
+		    return datetime.combine(date, time)
 	@classmethod
 	def _serialize_to(cls, value, pxval_value):
 		days = DateField._serialize_days(value.date())
