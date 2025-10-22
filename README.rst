@@ -1,3 +1,5 @@
+Note that this fork only exists to update the underlying pxlib includision to the latest version. The only change is to update `pypxlib/pxlib_ctypes/libpx_x64.so` to the latest version provided by pxlib.
+
 pypxlib
 =======
 
